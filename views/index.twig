@@ -5,10 +5,10 @@
     <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
 
 
-    <form>
-        <input placeholder="Enter to-do item">
-        <input placeholder="date picker">
-        <input placeholder="priority option">
+    <form method="POST">
+        <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;">
+        <input placeholder="date picker" type="date" style="margin: 0px 15px 0px 5px;">
+        <input placeholder="priority option" style="margin: 0px 15px 0px 5px;">
         <button> Add </button>
     </form>
 
@@ -21,30 +21,14 @@
 
     <ul>
         <li style="color: gray;"> #Todo dummy, date, priority <button>mark as done</button> <button>delete</button> </li>
+        {{ todo_text }}
     </ul>
-
 
 
     <h1> Complete </h1>
     <ul>
         <li style="color: gray;"> #Complete dummy, date, priority <button>mark as undone</button> <button>delete</button> </li>
     </ul>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
