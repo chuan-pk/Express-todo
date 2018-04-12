@@ -1,0 +1,51 @@
+{% extends 'layout.twig' %}
+
+{% block body %}
+    <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
+    <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
+
+
+    <form>
+        <input placeholder="Enter to-do item">
+        <input placeholder="date picker">
+        <input placeholder="priority option">
+        <button> Add </button>
+    </form>
+
+    {# calendar #}
+    <p style="margin: 50px; color: gray;"> # Calendar here </p>
+
+
+    <h1> Todo </h1>
+    {# todo item in unordered list? or table? #}
+
+    <ul>
+        <li style="color: gray;"> #Todo dummy, date, priority <button>mark as done</button> <button>delete</button> </li>
+    </ul>
+
+
+
+    <h1> Complete </h1>
+    <ul>
+        <li style="color: gray;"> #Complete dummy, date, priority <button>mark as undone</button> <button>delete</button> </li>
+    </ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
