@@ -7,8 +7,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res){
-    var text = req.body.todo_text;              // get todo text from input name = 'todo_text'
-    var html_text = "<li>" + text + "</li>"     
+    var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
+    var date = req.body.date;                  // get todo date from input name = 'date'        yyyy-mm-dd
+    var priority = req.body.priority;          // get todo priority from input name = 'priority'
+    var html_text = "<li>" + text + ' ' + date + ' ' + priority;
     res.render('index', {title: 'Todo dashboard', todo_text: html_text});
 })
 
