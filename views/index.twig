@@ -25,14 +25,17 @@
     {# todo item in unordered list? or table? #}
 
     <ul>
-        <li style="color: gray;"> #Todo dummy, date, priority <button>mark as done</button> <button>delete</button> </li>
-        {{ todo_text }}
+        {% for todo in todo_list %}
+            <li> {{todo.todo_text}} {{todo.date}} {{todo.priority}} <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/correct.svg" style="width: 25px; height:25px;">
+                <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"></li>
+        {% endfor %}
     </ul>
 
 
     <h1> Complete </h1>
     <ul>
-        <li style="color: gray;"> #Complete dummy, date, priority <button>mark as undone</button> <button>delete</button> </li>
+        <li> #Complete dummy, date, priority <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/cancel-1.svg" style="width: 25px; height:25px;">
+                <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"> </li>
     </ul>
 
 

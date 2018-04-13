@@ -4,7 +4,10 @@ var models = require('../db/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Todo dashboard' });
+
+    models.Todo.findAll().then(function(todo) {
+      res.render('index', { title: 'Todo dashboard', todo_list: todo});  
+        });
 });
 
 router.post('/', function(req, res){
@@ -17,6 +20,7 @@ router.post('/', function(req, res){
         date: date,
         priority: priority
     });
+    res.redirect('/')
 });
 
 module.exports = router;
