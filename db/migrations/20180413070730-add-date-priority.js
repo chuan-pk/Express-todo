@@ -2,7 +2,7 @@
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    queryInterface.addColumn('Todos', 'date', Sequelize.TEXT);
+    queryInterface.addColumn('Todos', 'date', Sequelize.DATEONLY);
     queryInterface.addColumn('Todos', 'priority', Sequelize.TEXT);
   },
   down: (queryInterface, Sequelize) => {
