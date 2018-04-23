@@ -18,7 +18,8 @@ router.post('/', function(req, res){
     models.Todo.create({
         todo_text: text,
         date: date,
-        priority: priority
+        priority: priority,
+        complete: false
     });
     res.redirect('/')
 });
