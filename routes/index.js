@@ -31,6 +31,13 @@ router.post('/', function(req, res){
 
 router.post('/submit/:item_id', function(req, res){
     var item_id = req.params.item_id;
+    models.Todo.findById(item_id).then(todo => {
+        todo.update({
+            complete: !(todo.complete)
+        }).then(function(updated){
+            res.redirect("/");
+        });
+    })
 });
 
 router.post('/delete/:item_id', function(req, res){
