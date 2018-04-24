@@ -22,13 +22,18 @@
 
 
     <h1> Todo </h1>
-    {# todo item in unordered list? or table? #}
-
     <ul>
         {% for todo_item in todo_list %}
             {% if todo_item.complete == false %}
-            <li> {{todo_item.todo_text}} {{todo_item.date}} {{todo_item.priority}} <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/correct.svg" style="width: 25px; height:25px;">
-                <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"></li>
+            <li> {{ todo_item.todo_text }} {{ todo_item.date }} {{ todo_item.priority }}
+                <form method="POST" action="/submit/{{ todo_item.id }}">
+                    <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                </form>
+
+                <form method="POST" action="/delete/{{ todo_item.id }}">
+                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                </form>
+            </li>
             {% endif %}
         {% endfor %}
     </ul>
@@ -38,8 +43,15 @@
     <ul>
         {% for complete_item in todo_list %}
             {% if complete_item.complete == true %}
-            <li> {{ complete_item.todo_text }} {{ complete_item.daete }} {{ complete_item.priority }}<button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/cancel-1.svg" style="width: 25px; height:25px;">
-                    <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"> </li>
+            <li> {{ complete_item.todo_text }} {{ complete_item.daete }} {{ complete_item.priority }}
+                <form method="POST" action="/submit/{{ complete_item.id }}">
+                    <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                </form>
+
+                <form method="POST" action="/delete/{{ complete_item.id }}">
+                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                </form>
+            </li>
             {% endif %}
         {% endfor %}
     </ul>

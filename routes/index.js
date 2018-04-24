@@ -29,17 +29,20 @@ router.post('/', function(req, res){
 });
 
 
-router.post('/submit', function(req, res){
-    var item_id = req.body.item_id;
-    var item = models.Todo.findById(item_id);
-    item.complete = not(item.complete);
-    item.save();
+router.post('/submit/:item_id', function(req, res){
+    var item_id = req.params.item_id;
 });
 
-router.post('/delete', function(req, res){
-    var item_id = req.body.item_id;
-    // delete item   
-})
+router.post('/delete/:item_id', function(req, res){
+    var item_id = req.params.item_id;
+    models.Todo.destroy({
+        where: {
+            id: item_id
+        }
+    }).then(function(deleted){
+            res.redirect('/');
+    });
+});
 
 
 module.exports = router;
