@@ -25,19 +25,23 @@
     {# todo item in unordered list? or table? #}
 
     <ul>
-        {% for todo in todo_list %}
-            <li> {{todo.todo_text}} {{todo.date}} {{todo.priority}} <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/correct.svg" style="width: 25px; height:25px;">
+        {% for todo_item in todo_list %}
+            {% if todo_item.complete == false %}
+            <li> {{todo_item.todo_text}} {{todo_item.date}} {{todo_item.priority}} <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/correct.svg" style="width: 25px; height:25px;">
                 <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"></li>
+            {% endif %}
         {% endfor %}
     </ul>
 
 
     <h1> Complete </h1>
     <ul>
-        <li> #Complete dummy, date, priority <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/cancel-1.svg" style="width: 25px; height:25px;">
-                <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"> </li>
+        {% for complete_item in todo_list %}
+            {% if complete_item.complete == true %}
+            <li> {{ complete_item.todo_text }} {{ complete_item.daete }} {{ complete_item.priority }}<button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/cancel-1.svg" style="width: 25px; height:25px;">
+                    <button style="padding: 2px; margin: 1px 5px 1px 5px;"><img src="/icon/garbage.svg" style="width: 25px; height:25px;"> </li>
+            {% endif %}
+        {% endfor %}
     </ul>
-
-
 
 {% endblock %}
