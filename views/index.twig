@@ -20,40 +20,79 @@
     {# calendar #}
     <p style="margin: 50px; color: gray;"> # Calendar here </p>
 
-
+    <div class="todo">
     <h1> Todo </h1>
     <ul>
+        {# for all obj in this table #}
         {% for todo_item in todo_list %}
-            {% if todo_item.complete == false %}
-            <li> {{ todo_item.todo_text }} {{ todo_item.date }} {{ todo_item.priority }}
-                <form method="POST" action="/submit/{{ todo_item.id }}">
+            {# if obj is todo item and date is valid #}
+            {% if todo_item.complete == false and todo_item.date != "Invalid date"%}
+            <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
+
+                <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                </form>
+
+                <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
                     <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
                 </form>
 
-                <form method="POST" action="/delete/{{ todo_item.id }}">
+             <br><label class="date">{{ todo_item.date }}</label>
+
+            </li>
+            {% endif %}
+
+            {% if todo_item.complete == false and todo_item.date == "Invalid date"%}
+            <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
+
+                <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
                     <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
                 </form>
+
+                <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                    <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                </form>
+
+
             </li>
             {% endif %}
         {% endfor %}
     </ul>
-
 
     <h1> Complete </h1>
     <ul>
         {% for complete_item in todo_list %}
-            {% if complete_item.complete == true %}
-            <li> {{ complete_item.todo_text }} {{ complete_item.daete }} {{ complete_item.priority }}
-                <form method="POST" action="/submit/{{ complete_item.id }}">
+            {% if complete_item.complete == true and complete_item.date != "Invalid date" %}
+            <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
+
+                <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                </form>
+
+                <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
                     <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
                 </form>
 
-                <form method="POST" action="/delete/{{ complete_item.id }}">
-                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                </form>
+            <br><label class="date">{{ complete_item.date }}</label>
+
             </li>
             {% endif %}
+            {% if complete_item.complete == true and complete_item.date == "Invalid date" %}
+            <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
+                
+                <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                </form>
+
+                <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                    <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                </form>
+
+            </li>
+            {% endif %}
+
         {% endfor %}
     </ul>
+    </div>
 
 {% endblock %}
