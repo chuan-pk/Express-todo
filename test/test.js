@@ -8,7 +8,7 @@ var assert = require('chai').assert;
 let should = chai.should();
 chai.use(chaiHttp);
 
-describe('user creation page', function () {
+describe('Todo', function () {
   before(function () {
     return models.sequelize.sync();
   });
@@ -17,7 +17,8 @@ describe('user creation page', function () {
     return models.Todo.destroy({ truncate: true })
   });
 
-    it('loads correctly', function (done) {
+  describe('/GET todo', () => {
+    it('loads page correctly', function (done) {
       chai.request(app)
         .get('/')
         .end((err, res) => {
@@ -26,7 +27,8 @@ describe('user creation page', function () {
           done();
         });
     });
-		
+	});
+  
   describe('/POST todo', () => {
     it('it should POST a book', (done) => {
       let todo = {

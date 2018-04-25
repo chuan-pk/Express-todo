@@ -69,3 +69,13 @@ label.date{
 div.todo{
   width: 50%;
 }
+
+div.chart{
+  color:#000!important;
+  background-color:#f1f1f1!important
+}
+
+div.percentchart{
+  color:#fff!important;
+  background-color:#4CAF50!important
+}

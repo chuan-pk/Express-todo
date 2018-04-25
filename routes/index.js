@@ -4,14 +4,18 @@ var models = require('../db/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-
-    models.Todo.findAll({
-        // where:{
-        //     complete: false             // find all todo in database, todo-list's complete attribute = false 
-        // }
-    }).then(function(todo){
-      res.render('index', { title: 'Todo dashboard', todo_list: todo});  
+    models.Todo.findAll()
+        .then(todo => {
+            models.Todo.findAndCountAll()
+            .then(all => {
+                models.Todo.findAndCountAll({where: {complete: true}})
+            .then(done => {
+                var percent = done.count/all.count*100
+                console.log(percent)
+                return res.render('index', { title: 'Todo dashboard', todo_list: todo, percent:percent});
+            });
         });
+    });
 });
 
 router.post('/', function(req, res){
