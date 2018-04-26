@@ -1,0 +1,36 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  color: #212121;
+  background-color: #1565C0;
+}
+
+
+a{
+    font-size: 18px;
+    color: #1565C0;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #00B0FF;
+    text-decoration: underline;
+}
+
+
+
+.col {
+    float: left;
+    width: 25%;
+    background-color: #FAFAFA; 
+    padding: 24px;
+    margin: 12px;
+    box-shadow: 0px 1px 4px rgba(44, 62, 80, 0.20);
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
