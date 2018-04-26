@@ -4,99 +4,123 @@
     <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
     <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
 
+    <div class="column_row">
+    <div class="column">
+        <form method="POST">
+            <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
+            <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
+            <select id="priority" name="priority">
+                <option value="" disabled selected> Select priority </option>
+                <option value="High"> High </option>
+                <option value="Medium"> Medium </option>
+                <option value="Low"> Low </option>
+            </select>
+            <button id="add_todo"> Add </button>
+        </form>
 
-    <form method="POST">
-        <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
-        <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
-        <select id="priority" name="priority">
-            <option value="" disabled selected> Select priority </option>
-            <option value="High"> High </option>
-            <option value="Medium"> Medium </option>
-            <option value="Low"> Low </option>
-        </select>
-        <button id="add_todo"> Add </button>
-    </form>
+        {# calendar #}
+        {#     <p style="margin: 50px; color: gray;"> # Calendar here </p>
 
-    {# calendar #}
-    <p style="margin: 50px; color: gray;"> # Calendar here </p>
+        <div class="chart">
+            <div class="percentchart" style="height:24px;width:{{ percent }}%"></div>
+        </div>
+         #}
 
-    <div class="chart">
-        <div class="percentchart" style="height:24px;width:{{ percent }}%"></div>
-    </div>
-    
-    <div class="todo">
-    <h1> Todo </h1>
-    <ul>
-        {# for all obj in this table #}
-        {% for todo_item in todo_list %}
-            {# if obj is todo item and date is valid #}
-            {% if todo_item.complete == false and todo_item.date != "Invalid date"%}
-            <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
+        <div class="todo">
+        <h1> Todo </h1>
+        <ul>
+            {# for all obj in this table #}
+            {% for todo_item in todo_list %}
+                {# if obj is todo item and date is valid #}
+                {% if todo_item.date != "Invalid date"%}
+                <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
 
-                <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                    </form>
 
-                <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                    <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                        <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                    </form>
 
-             <br><label class="date">{{ todo_item.date }}</label>
+                 <br><label class="date">{{ todo_item.date }}</label>
 
-            </li>
-            {% endif %}
+                </li>
+                {% endif %}
 
-            {% if todo_item.complete == false and todo_item.date == "Invalid date"%}
-            <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
+                {% if todo_item.date == "Invalid date"%}
+                <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
 
-                <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                    </form>
 
-                <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                    <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                        <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                    </form>
 
 
-            </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
+                </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
 
-    <h1> Complete </h1>
-    <ul>
-        {% for complete_item in todo_list %}
-            {% if complete_item.complete == true and complete_item.date != "Invalid date" %}
-            <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
+        <h1> Complete </h1>
+        <ul>
+            {% for complete_item in complete_list %}
+                {% if complete_item.date != "Invalid date" %}
+                <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
 
-                <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                    </form>
 
-                <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                    <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                        <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                    </form>
 
-            <br><label class="date">{{ complete_item.date }}</label>
+                <br><label class="date">{{ complete_item.date }}</label>
 
-            </li>
-            {% endif %}
-            {% if complete_item.complete == true and complete_item.date == "Invalid date" %}
-            <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
-                
-                <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                    <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                </form>
+                </li>
+                {% endif %}
+                {% if complete_item.date == "Invalid date" %}
+                <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
+                    
+                    <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                    </form>
 
-                <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                    <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                </form>
+                    <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                        <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                    </form>
 
-            </li>
-            {% endif %}
+                </li>
+                {% endif %}
 
-        {% endfor %}
-    </ul>
-    </div>
+            {% endfor %}
+        </ul>
+    </div>      {# todo class /div #}
+    </div>      {# left column /div #}
+
+
+    {# -------------------- right column DASHBOARD COLUMN -------------------- #}
+    <div class="column">
+
+
+
+        <h2>All task: </h2> <p>{{todo_count + complete_count }}</p>
+        <h2>Todo task: </h2> <p>{{todo_count}}</p>
+        <h2>Complete task: </h2> <p>{{complete_count }}</p>
+        <br>
+        <h2>Todo %: </h2> <p>{{todo_count/(todo_count+complete_count)*100}}</p>
+        <h2>Complete %: </h2> <p>{{complete_count/(todo_count+complete_count)*100}}</p>
+        <br>
+
+        <h2>High priority todo task: </h2> <p>{{todo_high_priority_count}} </p>
+
+
+    </div>      {# right column /div #}
+    </div>      {# row column /div #}
 
 {% endblock %}
+ 

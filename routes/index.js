@@ -4,19 +4,27 @@ var models = require('../db/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    models.Todo.findAll()
+    models.Todo.findAndCountAll({where: {complete: false}})       // find todo-item in in todo models
         .then(todo => {
-            models.Todo.findAndCountAll()
-            .then(all => {
-                models.Todo.findAndCountAll({where: {complete: true}})
-            .then(done => {
-                var percent = done.count/all.count*100
-                console.log(percent)
-                return res.render('index', { title: 'Todo dashboard', todo_list: todo, percent:percent});
+            models.Todo.findAndCountAll({where: {complete: true}})  // find complete-item in todo models
+        .then(complete =>{
+            models.Todo.count({where: {priority: 'High', complete: false}})
+        .then(todo_high_count =>{
+            res.render('index', { 
+                title: 'Todo dashboard', 
+                todo_list: todo.rows, 
+                complete_list: complete.rows, 
+                todo_count: todo.count,
+                complete_count: complete.count,
+                todo_high_priority_count: todo_high_count
             });
         });
-    });
+        });
+        });
 });
+
+
+
 
 router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'

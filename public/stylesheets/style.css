@@ -67,15 +67,18 @@ label.date{
 }
 
 div.todo{
-  width: 50%;
+  width: 90%;
 }
 
-div.chart{
-  color:#000!important;
-  background-color:#f1f1f1!important
+.column {
+    float: left;
+    width: 50%;
+    background-color: ; 
 }
 
-div.percentchart{
-  color:#fff!important;
-  background-color:#4CAF50!important
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
