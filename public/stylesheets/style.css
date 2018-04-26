@@ -16,9 +16,10 @@ ul{
 }
 
 li{
+    color: #212121;
     height: 42px;
     font-size: 18px;
-    margin: 12px;
+    margin: 12px 0px 12px 24px;
     box-shadow: 0px 1px 2px rgba(44, 62, 80, 0.10);
     border-style: solid;
     border-width: 0.5px;
@@ -37,21 +38,7 @@ img.icon{
   height:25px;
 }
 
-li.High{
-  color: red;
-}
 
-li.Medium{
-  color: orange;
-}
-
-li.Low{
-  color: blue;
-}
-
-li{
-  color: green;
-}
 
 label.text{
   font-size: 18px;
@@ -66,7 +53,7 @@ label.date{
   padding: 16px;
 }
 
-div.todo{
+div.todo_table{
   width: 90%;
 }
 
@@ -81,4 +68,17 @@ div.todo{
     content: "";
     display: table;
     clear: both;
+}
+
+div.High{
+  /* weight 400 material color */
+  background-color: #EF5350;  
+}
+
+div.Medium{
+  background-color: #FFA726;
+}
+
+div.Low{
+  background-color: #66BB6A;
 }

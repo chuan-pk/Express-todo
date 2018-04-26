@@ -26,41 +26,44 @@
         </div>
          #}
 
-        <div class="todo">
+        <div class="todo_table">
         <h1> Todo </h1>
         <ul>
             {# for all obj in this table #}
             {% for todo_item in todo_list %}
                 {# if obj is todo item and date is valid #}
                 {% if todo_item.date != "Invalid date"%}
-                <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
+                <div class={{todo_item.priority}}>
+                    <li> <label class="text">{{ todo_item.todo_text }}</label>
 
-                    <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                    </form>
+                        <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                        </form>
 
-                    <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                        <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                    </form>
+                        <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                            <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                        </form>
 
-                 <br><label class="date">{{ todo_item.date }}</label>
-
-                </li>
+                     <br><label class="date">{{ todo_item.date }}</label>
+                    </li>
+                </div>
                 {% endif %}
 
                 {% if todo_item.date == "Invalid date"%}
-                <li class={{todo_item.priority}}> <label class="text">{{ todo_item.todo_text }}</label>
 
-                    <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                    </form>
+                <div class={{todo_item.priority}}>
+                    <li> <label class="text">{{ todo_item.todo_text }}</label>
 
-                    <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                        <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                    </form>
+                        <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                        </form>
 
+                        <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                            <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                        </form>
 
-                </li>
+                    </li>
+                </div>
                 {% endif %}
             {% endfor %}
         </ul>
@@ -69,34 +72,39 @@
         <ul>
             {% for complete_item in complete_list %}
                 {% if complete_item.date != "Invalid date" %}
-                <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
 
-                    <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                    </form>
+                <div class={{complete_item.priority}}>
+                    <li> <label class="text">{{ complete_item.todo_text }}</label>
 
-                    <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                        <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                    </form>
+                        <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                        </form>
 
-                <br><label class="date">{{ complete_item.date }}</label>
+                        <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                            <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                        </form>
 
-                </li>
+                    <br><label class="date">{{ complete_item.date }}</label>
+
+                    </li>
+                </div>
+
                 {% endif %}
                 {% if complete_item.date == "Invalid date" %}
-                <li class={{ complete_item.priority }}> <label class="text">{{ complete_item.todo_text }}</label>
-                    
-                    <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                        <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                    </form>
+                <div class={{complete_item.priority}}    
+                    <li> <label class="text">{{ complete_item.todo_text }}</label>
+                        
+                        <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                        </form>
 
-                    <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                        <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                    </form>
+                        <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                            <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                        </form>
 
-                </li>
+                    </li>
+                </div>    
                 {% endif %}
-
             {% endfor %}
         </ul>
     </div>      {# todo class /div #}
