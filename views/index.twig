@@ -6,6 +6,7 @@
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
       google.charts.setOnLoadCallback(drawChart);
+      google.charts.setOnLoadCallback(drawChart2);
 
       function drawChart() {
 
@@ -26,7 +27,35 @@
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
         chart.draw(data, options);
+      } 
+
+
+      function drawChart2() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['priority', 'number of task'],
+          ['High',     {{todo_high_priority_count}}],
+          ['Medium',  {{todo_medium_priority_count}}],
+          ['Low',  {{todo_low_priority_count}}],
+          ['Default',  {{todo_d_priority_count}}]
+        ]);
+
+        var options = {
+          title: 'Priority',
+          colors: [
+          '#EF5350',
+          '#FFA726',
+          '#66BB6A',
+          '#424242'
+          ]
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data, options);
       }   
+
+
     </script>
 
 
@@ -118,9 +147,9 @@
 
                 {% endif %}
                 {% if complete_item.date == "Invalid date" %}
-                <div class={{complete_item.priority}}    
+                <div class={{complete_item.priority}}>
                     <li> <label class="text">{{ complete_item.todo_text }}</label>
-                        
+
                         <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
                             <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
                         </form>
@@ -130,7 +159,7 @@
                         </form>
 
                     </li>
-                </div>    
+                </div>   
                 {% endif %}
             {% endfor %}
         </ul>
@@ -141,6 +170,8 @@
     {# -------------------- right column DASHBOARD COLUMN -------------------- #}
     <div class="column">
         <div id="piechart" style="width: 900px; height: 500px;"></div>
+
+        <div id="piechart2" style="width: 900px; height: 500px;"></div>
 
     </div>      {# right column /div #}
     </div>      {# row column /div #}

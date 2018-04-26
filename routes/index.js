@@ -10,18 +10,43 @@ router.get('/', function(req, res, next) {
         .then(complete =>{
             models.Todo.count({where: {priority: 'High', complete: false}})
         .then(todo_high_count =>{
-            res.render('index', { 
+            models.Todo.count({where: {priority: 'Medium', complete: false}})
+        .then(todo_medium_count =>{
+            models.Todo.count({where: {priority: 'Low', complete: false}})
+        .then(todo_low_count =>{
+            models.Todo.count({where: {priority: null, complete: false}})
+        .then(todo_d_count =>{
+                console.log(todo_d_count);
+
+                res.render('index', { 
                 title: 'Todo dashboard', 
                 todo_list: todo.rows, 
                 complete_list: complete.rows, 
                 todo_count: todo.count,
                 complete_count: complete.count,
-                todo_high_priority_count: todo_high_count
+                todo_high_priority_count: todo_high_count,
+                todo_medium_priority_count: todo_medium_count,
+                todo_low_priority_count: todo_low_count,
+                todo_d_priority_count: todo_d_count
             });
         });
         });
         });
+        });
+        });
+        });
 });
+
+
+            // res.render('index', { 
+            //     title: 'Todo dashboard', 
+            //     todo_list: todo.rows, 
+            //     complete_list: complete.rows, 
+            //     todo_count: todo.count,
+            //     complete_count: complete.count,
+            //     todo_high_priority_count: todo_high_count
+            // });
+
 
 router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
