@@ -23,9 +23,6 @@ router.get('/', function(req, res, next) {
         });
 });
 
-
-
-
 router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
     var date = req.body.date;                  // get todo date from input name = 'date'        yyyy-mm-dd
@@ -39,7 +36,6 @@ router.post('/', function(req, res){
     });
     res.redirect('/')
 });
-
 
 router.post('/submit/:item_id', function(req, res){
     var item_id = req.params.item_id;

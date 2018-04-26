@@ -1,5 +1,40 @@
 {% extends 'layout.twig' %}
 
+{% block head %}
+    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Todo/complete', 'number of task'],
+          ['Todo',     {{todo_count}}],
+          ['Complete',  {{complete_count}}]
+        ]);
+
+        var options = {
+          title: 'Todo and Complete Task',
+          colors: [
+          '#424242',
+          '#00E676'
+          ]
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }   
+    </script>
+
+
+
+{% endblock %}
+
+
+
 {% block body %}
     <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
     <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
@@ -17,14 +52,6 @@
             </select>
             <button id="add_todo"> Add </button>
         </form>
-
-        {# calendar #}
-        {#     <p style="margin: 50px; color: gray;"> # Calendar here </p>
-
-        <div class="chart">
-            <div class="percentchart" style="height:24px;width:{{ percent }}%"></div>
-        </div>
-         #}
 
         <div class="todo_table">
         <h1> Todo </h1>
@@ -113,19 +140,7 @@
 
     {# -------------------- right column DASHBOARD COLUMN -------------------- #}
     <div class="column">
-
-
-
-        <h2>All task: </h2> <p>{{todo_count + complete_count }}</p>
-        <h2>Todo task: </h2> <p>{{todo_count}}</p>
-        <h2>Complete task: </h2> <p>{{complete_count }}</p>
-        <br>
-        <h2>Todo %: </h2> <p>{{todo_count/(todo_count+complete_count)*100}}</p>
-        <h2>Complete %: </h2> <p>{{complete_count/(todo_count+complete_count)*100}}</p>
-        <br>
-
-        <h2>High priority todo task: </h2> <p>{{todo_high_priority_count}} </p>
-
+        <div id="piechart" style="width: 900px; height: 500px;"></div>
 
     </div>      {# right column /div #}
     </div>      {# row column /div #}
