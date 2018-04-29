@@ -29,7 +29,7 @@ li{
 }
 
 button.submit_delete{
-  padding: 2px; 
+  padding: 2px;
   margin: 1px 5px 1px 5px;
 }
 
@@ -60,7 +60,7 @@ div.todo_table{
 .column {
     float: left;
     width: 50%;
-    background-color: ; 
+    background-color: ;
 }
 
 /* Clear floats after the columns */
@@ -72,7 +72,7 @@ div.todo_table{
 
 div.High{
   /* weight 400 material color */
-  background-color: #EF5350;  
+  background-color: #EF5350;
 }
 
 div.Medium{

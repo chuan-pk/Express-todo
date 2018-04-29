@@ -2,9 +2,13 @@
 <html>
   <head>
     <title>{{ title }}</title>
-    {% block head %}{% endblock %}      
+    {% block head %}{% endblock %}
   </head>
   <body>
+    <div align="right">
+      <a href="http://localhost:3000/">home</a>
+      <a href="http://localhost:3000/about/">about page</a>
+    </div>
     {% block body %}{% endblock %}
   </body>
 </html>
