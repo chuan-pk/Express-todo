@@ -3,36 +3,9 @@
 {% block head %}
     <link rel='stylesheet' href='/stylesheets/style.css' />
 
-    <link href='/fullcalendar/fullcalendar.min.css' rel='stylesheet' />
-    <link href='/fullcalendar/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-    <script src='/fullcalendar/lib/moment.min.js'></script>
-    <script src='/fullcalendar/lib/jquery.min.js'></script>
-    <script src='/fullcalendar/fullcalendar.min.js'></script>
-
-    <script>
-
-    $(document).ready(function() {
-      $('#calendar').fullCalendar({
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: [
-          {
-            title: 'Event 1',
-            start: '2018-04-28'
-          },
-          {
-            title: 'Event 2',
-            start: '2018-04-30',
-          },
-          {
-            title: 'Event 3',
-            start: '2018-04-30',
-          },
-        ]
-      });
-    });
-
-    </script>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="/stylesheets/calendar.css">
+    <script src="/js/calendar.js"></script>
     
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -90,8 +63,6 @@
 
     </script>
 
-
-
 {% endblock %}
 
 
@@ -101,112 +72,132 @@
     <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
 
     <div class="column_row">
-    <div class="column">
-        <form method="POST">
-            <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
-            <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
-            <select id="priority" name="priority">
-                <option value="" disabled selected> Select priority </option>
-                <option value="High"> High </option>
-                <option value="Medium"> Medium </option>
-                <option value="Low"> Low </option>
-            </select>
-            <button id="add_todo"> Add </button>
-        </form>
+      
+      <div class="column">
+          <div id="piechart" style="width: 900px; height: 500px;display:none"></div>
+          <form method="POST">
+              <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
+              <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
+              <select id="priority" name="priority">
+                  <option value="" disabled selected> Select priority </option>
+                  <option value="High"> High </option>
+                  <option value="Medium"> Medium </option>
+                  <option value="Low"> Low </option>
+              </select>
+              <button id="add_todo"> Add </button>
+          </form>
 
-        <div class="todo_table">
-        <h1> Todo </h1>
-        <ul>
-            {# for all obj in this table #}
-            {% for todo_item in todo_list %}
-                {# if obj is todo item and date is valid #}
-                {% if todo_item.date != "Invalid date"%}
-                <div class={{todo_item.priority}}>
-                    <li> <label class="text">{{ todo_item.todo_text }}</label>
+          <div class="todo_table" style="height:700px; overflow: auto;">
+          <h1> Todo </h1>
+          <ul>
+              {# for all obj in this table #}
+              {% for todo_item in todo_list %}
+                  {# if obj is todo item and date is valid #}
+                  {% if todo_item.date != "Invalid date"%}
+                  <div class={{todo_item.priority}}>
+                      <li> <label class="text">{{ todo_item.todo_text }}</label>
 
-                        <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                              <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                          </form>
 
-                        <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                            <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                              <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                          </form>
 
-                     <br><label class="date">{{ todo_item.date }}</label>
-                    </li>
-                </div>
-                {% endif %}
+                       <br><label class="date">{{ todo_item.date }}</label>
+                      </li>
+                  </div>
+                  {% endif %}
 
-                {% if todo_item.date == "Invalid date"%}
+                  {% if todo_item.date == "Invalid date"%}
 
-                <div class={{todo_item.priority}}>
-                    <li> <label class="text">{{ todo_item.todo_text }}</label>
+                  <div class={{todo_item.priority}}>
+                      <li> <label class="text">{{ todo_item.todo_text }}</label>
 
-                        <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
-                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/delete/{{ todo_item.id }}">
+                              <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                          </form>
 
-                        <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
-                            <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/submit/{{ todo_item.id }}">
+                              <button class="submit_delete"><img src="/icon/correct.svg" class="icon"></button>
+                          </form>
 
-                    </li>
-                </div>
-                {% endif %}
-            {% endfor %}
-        </ul>
+                      </li>
+                  </div>
+                  {% endif %}
+              {% endfor %}
+          </ul>
 
-        <h1> Complete </h1>
-        <ul>
-            {% for complete_item in complete_list %}
-                {% if complete_item.date != "Invalid date" %}
+          <h1> Complete </h1>
+          <ul>
+              {% for complete_item in complete_list %}
+                  {% if complete_item.date != "Invalid date" %}
 
-                <div class={{complete_item.priority}}>
-                    <li> <label class="text">{{ complete_item.todo_text }}</label>
+                  <div class={{complete_item.priority}}>
+                      <li> <label class="text">{{ complete_item.todo_text }}</label>
 
-                        <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                              <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                          </form>
 
-                        <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                            <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                              <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                          </form>
 
-                    <br><label class="date">{{ complete_item.date }}</label>
+                      <br><label class="date">{{ complete_item.date }}</label>
 
-                    </li>
-                </div>
+                      </li>
+                  </div>
 
-                {% endif %}
-                {% if complete_item.date == "Invalid date" %}
-                <div class={{complete_item.priority}}>
-                    <li> <label class="text">{{ complete_item.todo_text }}</label>
+                  {% endif %}
+                  {% if complete_item.date == "Invalid date" %}
+                  <div class={{complete_item.priority}}>
+                      <li> <label class="text">{{ complete_item.todo_text }}</label>
 
-                        <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
-                            <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/delete/{{ complete_item.id }}">
+                              <button class="submit_delete"><img src="/icon/garbage.svg" class="icon"></button>
+                          </form>
 
-                        <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
-                            <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
-                        </form>
+                          <form method="POST" class="form_button" action="/submit/{{ complete_item.id }}">
+                              <button class="submit_delete"><img src="/icon/cancel-1.svg" class="icon"></button>
+                          </form>
 
-                    </li>
-                </div>   
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>      {# todo class /div #}
-    </div>      {# left column /div #}
+                      </li>
+                  </div>   
+                  {% endif %}
+              {% endfor %}
+          </ul>
+          </div>      {# todo class /div #}
+      </div>      {# left column /div #}
 
 
     {# -------------------- right column DASHBOARD COLUMN -------------------- #}
-    <div class="column">
-        <div id='calendar'></div>
-        <div id="piechart" style="width: 900px; height: 500px;"></div>
+      <button onclick="displayChart()" style="float: right;">Show/Hide Chart</button>
+      <script>
+        function displayChart() {
+            var chart1 = document.getElementById("piechart");
+            var chart2 = document.getElementById("piechart2");
+            if (chart1.style.display === "inline") {
+                chart1.style.display = "none";
+                chart2.style.display = "none";
+            } else {
+                chart1.style.display = "inline";
+                chart2.style.display = "inline";
+            }
+        }
+      </script>
 
-        <div id="piechart2" style="width: 900px; height: 500px;"></div>
-
-    </div>      {# right column /div #}
+      <div class="column">
+          
+          <div id="piechart2" style="width: 900px; height: 500px; display:none"></div>
+          <div class="calendar-wrapper">
+            <button id="btnPrev" type="button">Prev</button>
+              <button id="btnNext" type="button">Next</button>
+            <div id="divCal"></div>
+          </div>
+          
+      </div>      {# right column /div #}
     </div>      {# row column /div #}
 
 {% endblock %}
