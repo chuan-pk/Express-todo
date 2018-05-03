@@ -10,10 +10,10 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
-      google.charts.setOnLoadCallback(drawChart2);
+      google.charts.setOnLoadCallback(drawTodoChart);
+      google.charts.setOnLoadCallback(drawPriorityChart);
 
-      function drawChart() {
+      function drawTodoChart() {
 
         var data = google.visualization.arrayToDataTable([
           ['Todo/complete', 'number of task'],
@@ -24,18 +24,18 @@
         var options = {
           title: 'Todo and Complete Task',
           colors: [
-          '#424242',
-          '#00E676'
+          '#00796B',  // 700
+          '#66BB6A'   // 400
           ]
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        var chart = new google.visualization.PieChart(document.getElementById('Todo_piechart'));
 
         chart.draw(data, options);
       } 
 
 
-      function drawChart2() {
+      function drawPriorityChart() {
 
         var data = google.visualization.arrayToDataTable([
           ['priority', 'number of task'],
@@ -51,11 +51,11 @@
           '#EF5350',
           '#FFA726',
           '#66BB6A',
-          '#424242'
+          '#0288D1'
           ]
         };
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+        var chart = new google.visualization.PieChart(document.getElementById('priority_chart'));
 
         chart.draw(data, options);
       }   
@@ -71,21 +71,49 @@
     <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
     <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
 
+    <form method="POST">
+        <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px; width: 36%; height: 48px;" required>
+        <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px; width: 18%; height: 48px;">
+        <select id="priority" name="priority" style="margin: 0px 15px 0px 5px; width: 18%; height: 48px;">
+            <option value="" disabled selected> Select priority </option>
+            <option value="High"> High </option>
+            <option value="Medium"> Medium </option>
+            <option value="Low"> Low </option>
+        </select>
+        <button id="add_todo" style="margin: 0px 15px 0px 5px; width: 100px; height: 48px;"> Add </button>
+    </form><br>
+
+    {# CHART #}
+    <button onclick="displayChart()" id="toggle_chart">Hide Chart</button>
+    <script>
+      function displayChart() {
+          var toggle_chart = document.getElementById("toggle_chart")
+          var chart1 = document.getElementById("Todo_piechart");
+          var chart2 = document.getElementById("priority_chart");
+          if (chart1.style.display === "inline") {
+              chart1.style.display = "none";
+              chart2.style.display = "none";
+              toggle_chart.innerHTML = "Show Chart";
+          } else {
+              chart1.style.display = "inline";
+              chart2.style.display = "inline";
+              toggle_chart.innerHTML = "Hide Chart";
+          }
+      }
+    </script>
+    <div class="column_row">
+      <div class="column">
+        <div id="Todo_piechart" style="width: 600px; height: 400px;"></div>
+      </div>
+      <div class="column">
+        <div id="priority_chart" style="width: 600px; height: 400px;"></div>  
+      </div>  
+    
+    </div>
+
     <div class="column_row">
       
       <div class="column">
-          <div id="piechart" style="width: 900px; height: 500px;display:none"></div>
-          <form method="POST">
-              <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
-              <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
-              <select id="priority" name="priority">
-                  <option value="" disabled selected> Select priority </option>
-                  <option value="High"> High </option>
-                  <option value="Medium"> Medium </option>
-                  <option value="Low"> Low </option>
-              </select>
-              <button id="add_todo"> Add </button>
-          </form>
 
           <div class="todo_table" style="height:700px; overflow: auto;">
           <h1> Todo </h1>
@@ -173,24 +201,8 @@
 
 
     {# -------------------- right column DASHBOARD COLUMN -------------------- #}
-      <button onclick="displayChart()" style="float: right;">Show/Hide Chart</button>
-      <script>
-        function displayChart() {
-            var chart1 = document.getElementById("piechart");
-            var chart2 = document.getElementById("piechart2");
-            if (chart1.style.display === "inline") {
-                chart1.style.display = "none";
-                chart2.style.display = "none";
-            } else {
-                chart1.style.display = "inline";
-                chart2.style.display = "inline";
-            }
-        }
-      </script>
-
       <div class="column">
           
-          <div id="piechart2" style="width: 900px; height: 500px; display:none"></div>
           <div class="calendar-wrapper">
             <button id="btnPrev" type="button">Prev</button>
               <button id="btnNext" type="button">Next</button>

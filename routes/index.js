@@ -37,17 +37,6 @@ router.get('/', function(req, res, next) {
         });
 });
 
-
-            // res.render('index', { 
-            //     title: 'Todo dashboard', 
-            //     todo_list: todo.rows, 
-            //     complete_list: complete.rows, 
-            //     todo_count: todo.count,
-            //     complete_count: complete.count,
-            //     todo_high_priority_count: todo_high_count
-            // });
-
-
 router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
     var date = req.body.date;                  // get todo date from input name = 'date'        yyyy-mm-dd
