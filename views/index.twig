@@ -90,13 +90,13 @@
           var toggle_chart = document.getElementById("toggle_chart")
           var chart1 = document.getElementById("Todo_piechart");
           var chart2 = document.getElementById("priority_chart");
-          if (chart1.style.display === "inline") {
-              chart1.style.display = "none";
-              chart2.style.display = "none";
-              toggle_chart.innerHTML = "Show Chart";
-          } else {
+          if (chart1.style.display === "none") {
               chart1.style.display = "inline";
               chart2.style.display = "inline";
+              toggle_chart.innerHTML = "Show Chart";
+          } else {
+              chart1.style.display = "none";
+              chart2.style.display = "none";
               toggle_chart.innerHTML = "Hide Chart";
           }
       }

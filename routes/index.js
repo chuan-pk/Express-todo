@@ -1,9 +1,11 @@
+var cookieParser = require('cookie-parser')
 var express = require('express');
 var router = express.Router();
 var models = require('../db/models');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+    console.log('Cookies: ', req.cookies);
     models.Todo.findAndCountAll({where: {complete: false}})       // find todo-item in in todo models
         .then(todo => {
             models.Todo.findAndCountAll({where: {complete: true}})  // find complete-item in todo models
@@ -72,6 +74,5 @@ router.post('/delete/:item_id', function(req, res){
             res.redirect('/');
     });
 });
-
 
 module.exports = router;

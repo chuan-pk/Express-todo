@@ -4,9 +4,14 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
+var session    = require('express-session');
+var passport = require('passport');
 
 var indexRouter = require('./routes/index');
 var aboutRouter = require('./routes/about');
+var signinRouter = require('./routes/signin');
+var signupRouter = require('./routes/signup');
+var logoutRouter = require('./routes/logout');
 
 var app = express();
 
@@ -22,8 +27,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
+// For Passport
+app.use(session({ secret: 'keyboard cat',resave: true, saveUninitialized:true})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+
 app.use('/', indexRouter);
 app.use('/about', aboutRouter);
+app.use('/signin', signinRouter);
+app.use('/signup', signupRouter);
+app.use('/logout', logoutRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -39,6 +52,21 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+
+//load passport strategies
+require('./config/passport.js');
+
+//Models
+var models = require("./db/models");
+
+//Sync Database
+models.sequelize.sync().then(function(){
+console.log('Nice! Database looks fine')
+
+}).catch(function(err){
+console.log(err,"Something went wrong with the Database Update!")
 });
 
 module.exports = app;
