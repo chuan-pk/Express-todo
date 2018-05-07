@@ -1,8 +1,8 @@
 {% extends 'layout.twig' %}
 
 {% block head %}
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-
+    {# <link rel='stylesheet' href='/stylesheets/style.css' />
+ #}
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="/stylesheets/calendar.css">
     <script src="/js/calendar.js"></script>
@@ -63,30 +63,46 @@
 
     </script>
 
+
 {% endblock %}
 
 
 
 {% block body %}
-    <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
-    <p style="font-size:24px; color: red;">Welcome to Todo Dashboard</p>
-    <h2> userID: {{ id }} </h2>
-    <h2> userName: {{user}} </h2>
+      <ul class="nav nav-pills justify-content-end">
+        <li class="nav-item"><a class="nav-link active" href="/">home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">about page</a></li>
+        <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
+        <li class="nav-item"><a class="nav-link" href="/signin">Sign in</a></li>
+        <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
+    </ul>
 
-    <form method="POST">
-        <input placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px; width: 36%; height: 48px;" required>
-        <input placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px; width: 18%; height: 48px;">
-        <select id="priority" name="priority" style="margin: 0px 15px 0px 5px; width: 18%; height: 48px;">
-            <option value="" disabled selected> Select priority </option>
-            <option value="High"> High </option>
-            <option value="Medium"> Medium </option>
-            <option value="Low"> Low </option>
-        </select>
-        <button id="add_todo" style="margin: 0px 15px 0px 5px; width: 100px; height: 48px;"> Add </button>
-    </form><br>
+    <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
+    <p style="font-size:24px; color: red;">you are log in as: {{user}}</p>
+
+    <div class="row">
+      <div class="col">
+      <form method="POST" class="form-inline">
+        <div class="form-group">
+          <input class="form-control" placeholder="Enter to-do item" id="todo_text" name="todo_text" style="margin: 0px 15px 0px 5px;" required>
+          <input class="form-control" placeholder="date picker" id="date" name="date" type="date" style="margin: 0px 15px 0px 5px;">
+          <div class="form-group">
+          <select class="form-control" id="priority" name="priority" style="margin: 0px 15px 0px 5px;">
+              <option value="" disabled selected> Select priority </option>
+              <option value="High"> High </option>
+              <option value="Medium"> Medium </option>
+              <option value="Low"> Low </option>
+          </select>
+          </div>
+          <button class="btn btn-outline-primary" id="add_todo" style="margin: 0px 15px 0px 5px; width: 120px;"> Add </button>
+        </div>  
+      </form>
+      </div>
+    </div>
+    <br>
 
     {# CHART #}
-    <button onclick="displayChart()" id="toggle_chart">Hide Chart</button>
+    <button onclick="displayChart()" id="toggle_chart" class="btn btn-outline-dark">Hide Chart</button>
     <script>
       function displayChart() {
           var toggle_chart = document.getElementById("toggle_chart")
@@ -95,27 +111,28 @@
           if (chart1.style.display === "none") {
               chart1.style.display = "inline";
               chart2.style.display = "inline";
-              toggle_chart.innerHTML = "Show Chart";
+              toggle_chart.innerHTML = "Hide Chart";
           } else {
               chart1.style.display = "none";
               chart2.style.display = "none";
-              toggle_chart.innerHTML = "Hide Chart";
+              toggle_chart.innerHTML = "Show Chart";
           }
       }
     </script>
-    <div class="column_row">
-      <div class="column">
+
+    <div class="row">
+      <div class="col">
         <div id="Todo_piechart" style="width: 600px; height: 400px;"></div>
       </div>
-      <div class="column">
+      <div class="col">
         <div id="priority_chart" style="width: 600px; height: 400px;"></div>  
       </div>  
     
     </div>
 
-    <div class="column_row">
+    <div class="row">
       
-      <div class="column">
+      <div class="col">
 
           <div class="todo_table" style="height:700px; overflow: auto;">
           <h1> Todo </h1>
@@ -203,7 +220,7 @@
 
 
     {# -------------------- right column DASHBOARD COLUMN -------------------- #}
-      <div class="column">
+      <div class="col">
           
           <div class="calendar-wrapper">
             <button id="btnPrev" type="button">Prev</button>
