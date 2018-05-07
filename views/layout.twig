@@ -3,19 +3,9 @@
   <head>
     <title>{{ title }}</title>
     {% block head %}{% endblock %}
+    <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
   </head>
-  <body>
-    <div align="right">
-      <a href="/">home</a>
-      <a href="/about">about page</a>
-      <a href="/signup">Sign Up</a>
-
-      {%if user%}
-      <a href="/logout">logout</a>
-      {% else %}
-      <a href="/signin">Sign In</a>
-      {% endif %}
-    </div>
-    {% block body %}{% endblock %}
+  <body class="container-fluid" style="padding: 36px;">
+      {% block body %}{% endblock %}
   </body>
 </html>

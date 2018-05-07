@@ -3,7 +3,7 @@ var router = express.Router();
 var passport = require('passport');
 
 router.get('/', function(req, res, next) {
-  res.render('signin', {title: 'Sign Ip'});
+  res.render('signin', {title: 'Sign In'});
 });
 
 router.post('/', passport.authenticate('local-signin', {
