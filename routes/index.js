@@ -2,9 +2,10 @@ var cookieParser = require('cookie-parser')
 var express = require('express');
 var router = express.Router();
 var models = require('../db/models');
+var passport = require('passport');
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/', isLoggedIn, function(req, res, next) {
     console.log('Cookies: ', req.cookies);
     models.Todo.findAndCountAll({where: {complete: false}})       // find todo-item in in todo models
         .then(todo => {
@@ -20,6 +21,9 @@ router.get('/', function(req, res, next) {
         .then(todo_d_count =>{
                 console.log(todo_d_count);
 
+                var id = req.user.id;
+                var user = req.user.username;
+
                 res.render('index', { 
                 title: 'Todo dashboard', 
                 todo_list: todo.rows, 
@@ -29,7 +33,10 @@ router.get('/', function(req, res, next) {
                 todo_high_priority_count: todo_high_count,
                 todo_medium_priority_count: todo_medium_count,
                 todo_low_priority_count: todo_low_count,
-                todo_d_priority_count: todo_d_count
+                todo_d_priority_count: todo_d_count,
+
+                id:id,
+                user:user,
             });
         });
         });
@@ -38,6 +45,11 @@ router.get('/', function(req, res, next) {
         });
         });
 });
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated())
+        return next(); 
+    res.redirect('/signin');
+}
 
 router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
@@ -75,4 +87,4 @@ router.post('/delete/:item_id', function(req, res){
     });
 });
 
-module.exports = router;
+module.exports = (passport,router);

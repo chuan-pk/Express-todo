@@ -9,6 +9,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 passport.serializeUser(function(user, done) {
       done(null, user.id);
+      console.log('user: ',user.id, user.username);
   });
 
 

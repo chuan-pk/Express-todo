@@ -8,9 +8,13 @@
     <div align="right">
       <a href="/">home</a>
       <a href="/about">about page</a>
-      <a href="/signin">Sign In</a>
+      {%if user%}
       <a href="/signup">Sign Up</a>
       <a href="/logout">logout</a>
+      
+      {% else %}
+      <a href="/signin">Sign In</a>
+      {% endif %}
     </div>
     {% block body %}{% endblock %}
   </body>
