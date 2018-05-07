@@ -8,10 +8,10 @@
     <div align="right">
       <a href="/">home</a>
       <a href="/about">about page</a>
-      {%if user%}
       <a href="/signup">Sign Up</a>
+
+      {%if user%}
       <a href="/logout">logout</a>
-      
       {% else %}
       <a href="/signin">Sign In</a>
       {% endif %}

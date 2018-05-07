@@ -6,19 +6,21 @@ var passport = require('passport');
 
 /* GET home page. */
 router.get('/', isLoggedIn, function(req, res, next) {
+    
     console.log('Cookies: ', req.cookies);
-    models.Todo.findAndCountAll({where: {complete: false}})       // find todo-item in in todo models
+        models.Todo.findAndCountAll({where: {complete: false, userID: req.user.id}})       // find todo-item in in todo models
         .then(todo => {
-            models.Todo.findAndCountAll({where: {complete: true}})  // find complete-item in todo models
+            models.Todo.findAndCountAll({where: {complete: true, userID: req.user.id}})  // find complete-item in todo models
         .then(complete =>{
-            models.Todo.count({where: {priority: 'High', complete: false}})
+            models.Todo.count({where: {priority: 'High', complete: false, userID: req.user.id}})
         .then(todo_high_count =>{
-            models.Todo.count({where: {priority: 'Medium', complete: false}})
+            models.Todo.count({where: {priority: 'Medium', complete: false, userID: req.user.id}})
         .then(todo_medium_count =>{
-            models.Todo.count({where: {priority: 'Low', complete: false}})
+            models.Todo.count({where: {priority: 'Low', complete: false, userID: req.user.id}})
         .then(todo_low_count =>{
-            models.Todo.count({where: {priority: null, complete: false}})
+            models.Todo.count({where: {priority: null, complete: false, userID: req.user.id}})
         .then(todo_d_count =>{
+            
                 console.log(todo_d_count);
 
                 var id = req.user.id;
@@ -55,12 +57,14 @@ router.post('/', function(req, res){
     var text = req.body.todo_text;             // get todo text from input name = 'todo_text'
     var date = req.body.date;                  // get todo date from input name = 'date'        yyyy-mm-dd
     var priority = req.body.priority;          // get todo priority from input name = 'priority'
+    var userID = req.user.id;
 
     models.Todo.create({
         todo_text: text,
         date: date,
         priority: priority,
-        complete: false
+        complete: false,
+        userID: userID,
     });
     res.redirect('/')
 });
