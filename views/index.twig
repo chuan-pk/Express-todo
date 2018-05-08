@@ -5,6 +5,7 @@
  #}
     <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css'>
     <link rel="stylesheet" href="/stylesheets/calendar.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
     <script src="/js/calendar.js"></script>
     
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -66,18 +67,15 @@
 
 {% endblock %}
 
-
-
 {% block body %}
-      <ul class="nav nav-pills justify-content-end">
+    <ul class="nav nav-pills justify-content-end">
         <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="/about">About page</a></li>
         <li class="nav-item"><a class="nav-link" href="/signin">Sign in or Sign up</a></li>
         <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
     </ul>
 
-    <h1 style="font-size:36px; font-weight: normal; color: blue;">Todo Dashboard Application</h1>
-    <p style="font-size:24px; color: red;">you are log in as: {{user}}</p>
+    <h3>Welcome: {{ user }}</h3><br><br>
 
     <div class="row">
       <div class="col">
@@ -139,16 +137,12 @@
               {% for todo_item in todo_list %}
                   {% if todo_item.date != "Invalid date"%}
                   <div class={{todo_item.priority}}>
-                      <li class="list-group-item"> <h3>{{ todo_item.todo_text }}</h3>
-                       <br><label>{{ todo_item.date }}</label>
-                        <div class="row">
-                          <div class="form-group col-xs-6">
-                            <form method="POST" class="form-inline">
-                                <button class="btn btn-outline-success" style="width: 50px; height: 50px;" formaction="/submit/{{ todo_item.id }}"><img src="../icon/correct.svg"></button>
-                                <button class="btn btn-outline-danger" style="width: 50px; height: 50px;" formaction="/delete/{{ todo_item.id }}"><img src="../icon/garbage.svg"></button>
+                      <li class="list-group-item" style="margin: 0px 12px 0px 12px;"> {{ todo_item.todo_text }}
+                            <form method="POST" class="form-inline" style="float: right;">
+                                <button class="btn btn-default" style="width: 50px; height: 50px; margin: 2px;" formaction="/submit/{{ todo_item.id }}"><img src="../icon/correct.svg"></button>
+                                <button class="btn btn-default" style="width: 50px; height: 50px; margin: 2px;" formaction="/delete/{{ todo_item.id }}"><img src="../icon/garbage.svg"></button>
                             </form>
-                          </div>
-                        </div>
+                        <br><label style="font-size: 14px;">{{ todo_item.date }}</label>
                       </li>
                   </div>
                   {% endif %}
@@ -156,15 +150,12 @@
                   {% if todo_item.date == "Invalid date"%}
 
                   <div class={{todo_item.priority}}>
-                      <li class="list-group-item"> <h3>{{ todo_item.todo_text }}</h3>
-                        <div class="row">
-                          <div class="form-group col-xs-6">
-                            <form method="POST" class="form-inline">
-                                <button class="btn btn-outline-success" style="width: 50px; height: 50px;" formaction="/submit/{{ todo_item.id }}"><img src="../icon/correct.svg"></button>
-                                <button class="btn btn-outline-danger" style="width: 50px; height: 50px;" formaction="/delete/{{ todo_item.id }}"><img src="../icon/garbage.svg"></button>
+                      <li class="list-group-item" style="margin: 0px 12px 0px 12px;"> {{ todo_item.todo_text }}
+                            <form method="POST" class="form-inline" style="float: right;">
+                                <button class="btn btn-default" style="width: 50px; height: 50px; margin: 2px;" formaction="/submit/{{ todo_item.id }}"><img src="../icon/correct.svg"></button>
+                                <button class="btn btn-default" style="width: 50px; height: 50px; margin: 2px;" formaction="/delete/{{ todo_item.id }}"><img src="../icon/garbage.svg"></button>
                             </form>
-                          </div>
-                        </div>
+                        <br><label style="font-size: 14px;">&nbsp;</label>
                       </li>
                   </div>
                   {% endif %}
@@ -177,33 +168,24 @@
                   {% if complete_item.date != "Invalid date" %}
 
                   <div class={{complete_item.priority}}>
-                      <li class="list-group-item"> <h3>{{ complete_item.todo_text }}</h3>
-                      <br><label>{{ complete_item.date }}</label>
-
-                        <div class="row">
-                          <div class="form-group col-xs-6">
-                          <form method="POST" class="form-inline">
-                              <button class="btn btn-outline-success" style="width: 50px; height: 50px;" formaction="/submit/{{ complete_item.id }}"><img src="../icon/cancel-1.svg" class="icon"></button>
-                              <button class="btn btn-outline-danger" style="width: 50px; height: 50px;" formaction="/delete/{{ complete_item.id }}"><img src="../icon/garbage.svg" class="icon"></button>
+                      <li class="list-group-item" style="margin: 0px 12px 0px 12px;">{{ complete_item.todo_text }}
+                          <form method="POST" class="form-inline" style="float: right;">
+                              <button class="btn btn-default" style="width: 50px; height: 50px; margin: 2px;" formaction="/submit/{{ complete_item.id }}"><img src="../icon/cancel-1.svg" class="icon"></button>
+                              <button class="btn btn-default" style="width: 50px; height: 50px;  margin: 2px;" formaction="/delete/{{ complete_item.id }}"><img src="../icon/garbage.svg" class="icon"></button>
                           </form>
-                        </div>
-                      </div>
+                      <br><label style="font-size: 14px;">{{ complete_item.date }}</label>
                       </li>
                   </div>
 
                   {% endif %}
                   {% if complete_item.date == "Invalid date" %}
                   <div class={{complete_item.priority}}>
-                      <li class="list-group-item"> <h3>{{ complete_item.todo_text }}</h3>
-
-                        <div class="row">
-                          <div class="form-group col-xs-6">
-                          <form method="POST" class="form-inline">
-                              <button class="btn btn-outline-success" style="width: 50px; height: 50px;" formaction="/submit/{{ complete_item.id }}"><img src="../icon/cancel-1.svg" class="icon"></button>
-                              <button class="btn btn-outline-danger" style="width: 50px; height: 50px;" formaction="/delete/{{ complete_item.id }}"><img src="../icon/garbage.svg" class="icon"></button>
+                      <li class="list-group-item" style="margin: 0px 12px 0px 12px;"> {{ complete_item.todo_text }}
+                          <form method="POST" class="form-inline" style="float: right;">
+                              <button class="btn btn-default" style="width: 50px; height: 50px;  margin: 2px;" formaction="/submit/{{ complete_item.id }}"><img src="../icon/cancel-1.svg" class="icon"></button>
+                              <button class="btn btn-default" style="width: 50px; height: 50px;  margin: 2px;" formaction="/delete/{{ complete_item.id }}"><img src="../icon/garbage.svg" class="icon"></button>
                           </form>
-                        </div>
-                      </div>
+                      <br><label style="font-size: 14px;">&nbsp;</label>
                       </li>
                   </div>   
                   {% endif %}
