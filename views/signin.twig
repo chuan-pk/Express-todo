@@ -2,30 +2,52 @@
 
 {% block head %}
 <link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css' />
+
 {% endblock %}  
 
 {% block body %}
-
     <ul class="nav nav-pills justify-content-end">
-        <li class="nav-item"><a class="nav-link" href="/">home</a></li>
-        <li class="nav-item"><a class="nav-link" href="/about">about page</a></li>
-        <li class="nav-item"><a class="nav-link" href="/signup">Sign up</a></li>
-        <li class="nav-item"><a class="nav-link active" href="/signin">Sign in</a></li>
+        <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="/about">About page</a></li>
+        <li class="nav-item"><a class="nav-link active" href="/signin">Sign in or Sign up</a></li>
         <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
     </ul>
 
     <div class="row">
-    <div class="col-sm-3">
-        <div class="form-group">
-            <form id="signin" name="signin" method="post" action="/signin">
-                <label for="email">Email Address</label>
-                <input class="form-control" name="email" type="text" />
-                <label for="password">Password</label>
-                <input class="form-control" name="password" type="password" /> <br>
-                <button class="btn btn-outline-primary" type="submit" value="Sign In"> Sign in </button>
-            </form>
+        <div class="col-sm-8">
+            <h4 style="color: #212121;">#Web app img</h4>
+            <img src="../img/n.jpg" class="img-fluid"></img>
+        </div>
+
+        <div class="col-sm-4" style="padding: 48px;">
+
+            <h2> Sign In </h2>
+            <div class="form-group">
+                <form id="signin" name="signin" method="post" action="/signin">
+                    <label for="email">Email Address</label>
+                    <input class="form-control" name="email" type="text" />
+                    <label for="password">Password</label>
+                    <input class="form-control" name="password" type="password" /> <br>
+                    <button class="btn btn-outline-primary" type="submit" value="Sign In"> Sign in </button>
+                </form>
+            </div>
+
+            <br><br>
+            <h3> Sign Up for new user </h3>
+
+            <div class="form-group">
+                <form id="signup" name="signup" method="post" action="/signup">
+                    <label for="email">Email Address</label>
+                    <input class="form-control" name="email" type="email" />
+                    <label for="username">Username</label>
+                    <input class="form-control" name="username" type="text"/>
+                    <label for="password">Password</label>
+                    <input class="form-control" name="password" type="password" /><br>
+                    <button class="btn btn-outline-primary" type="submit" value="Sign Up"> Sign up </button>
+                </form>
+            </div>
+
         </div>
     </div>
-    </div>
-
+</body>
 {% endblock %}
