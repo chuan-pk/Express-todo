@@ -43,13 +43,13 @@ td.not-current {
 td.today {
   font-weight: 500;
   color: #0288D1;
-  font-size: 1.2em;
+  font-size: 1.4em;
 }
 thead td {
   border: none;
-  color: #28283b;
+  color: #0288D1;
   text-transform: uppercase;
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 #btnPrev {
   float: left;
